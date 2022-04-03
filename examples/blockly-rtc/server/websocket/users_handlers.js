@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
  * @author navil@google.com (Navil Perez)
  */
 
-const database = require('../Database');
+const database = require("../Database");
 
 /**
  * Handler for an updatePosition message. Update a user's position in the
@@ -38,8 +38,8 @@ const database = require('../Database');
 async function updatePositionHandler(user, positionUpdate, callback) {
   await database.updatePosition(positionUpdate);
   callback();
-  user.broadcast.emit('broadcastPosition', [positionUpdate]);
-};
+  user.broadcast.emit("broadcastPosition", [positionUpdate]);
+}
 
 /**
  * Handler for a getPositionUpdates message. Query the database for a
@@ -52,7 +52,7 @@ async function updatePositionHandler(user, positionUpdate, callback) {
 async function getPositionUpdatesHandler(workspaceId, callback) {
   const positionUpdates = await database.getPositionUpdates(workspaceId);
   callback(positionUpdates);
-};
+}
 
 /**
  * Handler for a connectUser message. Attach the workspaceId to the user and
@@ -70,11 +70,11 @@ async function connectUserHandler(user, workspaceId, callback) {
     position: {
       type: null,
       blockId: null,
-      fieldName: null
+      fieldName: null,
     },
   };
   await updatePositionHandler(user, positionUpdate, callback);
-};
+}
 
 /**
  * Handler for a disconnect. Delete the user from the users table.
@@ -86,7 +86,7 @@ async function connectUserHandler(user, workspaceId, callback) {
 async function disconnectUserHandler(workspaceId, callback) {
   await database.deleteUser(workspaceId);
   callback();
-};
+}
 
 module.exports.updatePositionHandler = updatePositionHandler;
 module.exports.getPositionUpdatesHandler = getPositionUpdatesHandler;

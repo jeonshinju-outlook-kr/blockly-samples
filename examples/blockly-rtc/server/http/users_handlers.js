@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +22,9 @@
  * @author navil@google.com (Navil Perez)
  */
 
-const database = require('../Database');
+const database = require("../Database");
 
- /**
+/**
  * Handler for a users PUT request. Update a user's position in the users table.
  * @param {!Object} req The HTTP request object.
  * @param {!Object} res The HTTP response object.
@@ -33,20 +33,20 @@ const database = require('../Database');
 async function updatePositionHandler(req, res) {
   try {
     const data = [];
-    req.on('data', chunk => {
+    req.on("data", (chunk) => {
       data.push(chunk);
     });
-    req.on('end', async () => {
+    req.on("end", async () => {
       const positionUpdate = JSON.parse(data).positionUpdate;
       await database.updatePosition(positionUpdate);
       res.statusCode = 200;
-      res.end();  
+      res.end();
     });
   } catch {
     res.statusCode = 401;
     res.end();
-  };
-};
+  }
+}
 
 /**
  * Handler for a getPositionUpdates message. Query the database for a
@@ -58,15 +58,15 @@ async function updatePositionHandler(req, res) {
 async function getPositionUpdatesHandler(res, workspaceId) {
   try {
     const positionUpdates = await database.getPositionUpdates(workspaceId);
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
-    res.write(JSON.stringify({ positionUpdates }));  
+    res.write(JSON.stringify({positionUpdates}));
     res.end();
   } catch {
     res.statusCode = 401;
     res.end();
-  };
-};
+  }
+}
 
 module.exports.updatePositionHandler = updatePositionHandler;
 module.exports.getPositionUpdatesHandler = getPositionUpdatesHandler;

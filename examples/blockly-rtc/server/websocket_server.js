@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,25 +21,25 @@
  * @author navil@google.com (Navil Perez)
  */
 
-const socket = require('socket.io');
-const http = require('http');
+const socket = require("socket.io");
+const http = require("http");
 
-const EventsHandlers = require('./websocket/events_handlers');
-const UsersHandlers = require('./websocket/users_handlers');
+const EventsHandlers = require("./websocket/events_handlers");
+const UsersHandlers = require("./websocket/users_handlers");
 
 const WS_PORT = 3001;
- 
-const server = http.createServer(function(request, response) {
+
+const server = http.createServer(function (request, response) {
   response.writeHead(404);
   response.end();
 });
 
-server.listen(WS_PORT, function() {
-  console.log('server start at port 3001');
+server.listen(WS_PORT, function () {
+  console.log("server start at port 3001");
 });
 
 io = socket(server);
-io.on('connection', (user) => {
+io.on("connection", (user) => {
   onConnect_(user);
 });
 
@@ -50,37 +50,37 @@ io.on('connection', (user) => {
  * @private
  */
 async function onConnect_(user) {
-  user.on('connectUser', async (workspaceId, callback) => {
+  user.on("connectUser", async (workspaceId, callback) => {
     await UsersHandlers.connectUserHandler(user, workspaceId, callback);
   });
 
-  user.on('disconnect', async () => {
+  user.on("disconnect", async () => {
     await UsersHandlers.disconnectUserHandler(user.workspaceId, () => {
-      io.emit('disconnectUser', user.workspaceId);
+      io.emit("disconnectUser", user.workspaceId);
     });
   });
 
-  user.on('addEvents', async (entry, callback) => {
+  user.on("addEvents", async (entry, callback) => {
     await EventsHandlers.addEventsHandler(entry, (serverId) => {
       entry.serverId = serverId;
-      io.emit('broadcastEvents', [entry]);
+      io.emit("broadcastEvents", [entry]);
       callback(serverId);
     });
   });
 
-  user.on('getEvents', async (serverId, callback) => {
+  user.on("getEvents", async (serverId, callback) => {
     await EventsHandlers.getEventsHandler(serverId, callback);
   });
 
-  user.on('sendPositionUpdate', async (positionUpdate, callback) => {
+  user.on("sendPositionUpdate", async (positionUpdate, callback) => {
     await UsersHandlers.updatePositionHandler(user, positionUpdate, callback);
   });
 
-  user.on('getPositionUpdates', async (workspaceId, callback) => {
+  user.on("getPositionUpdates", async (workspaceId, callback) => {
     await UsersHandlers.getPositionUpdatesHandler(workspaceId, callback);
   });
 
-  user.on('getSnapshot', async (callback) => {
+  user.on("getSnapshot", async (callback) => {
     await EventsHandlers.getSnapshotHandler(callback);
   });
-};
+}

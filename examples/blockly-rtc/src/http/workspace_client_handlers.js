@@ -21,7 +21,7 @@
  * @author navil@google.com (Navil Perez)
  */
 
-import * as Blockly from 'blockly';
+import * as Blockly from "blockly";
 
 /**
  * Get a snapshot of the current workspace.
@@ -29,16 +29,16 @@ import * as Blockly from 'blockly';
  * @public
  */
 export async function getSnapshot() {
-  const response = await fetch('/api/snapshot/query');
+  const response = await fetch("/api/snapshot/query");
   const responseJson = await response.json();
   const snapshot = responseJson.snapshot;
   snapshot.xml = Blockly.Xml.textToDom(snapshot.xml);
   if (response.status === 200) {
     return snapshot;
   } else {
-    throw 'Failed to get workspace snapshot.';
-  };
-};
+    throw "Failed to get workspace snapshot.";
+  }
+}
 
 /**
  * Query the database for entries since the given server id.
@@ -48,7 +48,7 @@ export async function getSnapshot() {
  * @public
  */
 export async function getEvents(serverId) {
-  const response = await fetch('/api/events/query?serverId=' + serverId);
+  const response = await fetch("/api/events/query?serverId=" + serverId);
   const responseJson = await response.json();
   const entries = responseJson.entries;
   entries.forEach((entry) => {
@@ -59,9 +59,9 @@ export async function getEvents(serverId) {
   if (response.status === 200) {
     return entries;
   } else {
-    throw 'Failed to query database.';
-  };
-};
+    throw "Failed to query database.";
+  }
+}
 
 /**
  * Add an entry to database.
@@ -74,15 +74,15 @@ export async function writeEvents(entry) {
   const entryJson = {
     workspaceId: entry.workspaceId,
     entryNumber: entry.entryNumber,
-    events: entry.events.map((event) => event.toJson())
+    events: entry.events.map((event) => event.toJson()),
   };
-  const response = await fetch('/api/events/add', {
-    method: 'POST',
-    body: JSON.stringify({entry: entryJson})
+  const response = await fetch("/api/events/add", {
+    method: "POST",
+    body: JSON.stringify({entry: entryJson}),
   });
   if (response.status === 200) {
     return;
   } else {
-    throw 'Failed to write to database.';
-  };
-};
+    throw "Failed to write to database.";
+  }
+}

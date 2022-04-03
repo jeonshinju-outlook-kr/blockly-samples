@@ -10,19 +10,17 @@
 
 function init() {
   // Inject primary workspace.
-  const primaryWorkspace = Blockly.inject('primaryDiv',
-      {
-        media: 'https://unpkg.com/blockly/media/',
-        toolbox: document.getElementById('toolbox'),
-        trashcan: true,
-      });
+  const primaryWorkspace = Blockly.inject("primaryDiv", {
+    media: "https://unpkg.com/blockly/media/",
+    toolbox: document.getElementById("toolbox"),
+    trashcan: true,
+  });
   // Inject secondary workspace.
-  var secondaryWorkspace = Blockly.inject('secondaryDiv',
-      {
-        media: 'https://unpkg.com/blockly/media/',
-        toolbox: document.getElementById('toolbox'),
-        trashcan: true,
-      });
+  var secondaryWorkspace = Blockly.inject("secondaryDiv", {
+    media: "https://unpkg.com/blockly/media/",
+    toolbox: document.getElementById("toolbox"),
+    trashcan: true,
+  });
 
   // Add backpacks
   const primaryBackpack = new NotificationBackpack(primaryWorkspace);
@@ -35,7 +33,7 @@ function init() {
   secondaryWorkspace.addChangeListener(updateBackpack);
 
   function updateBackpack(event) {
-    if (event.type !== 'backpack_change') {
+    if (event.type !== "backpack_change") {
       return;
     }
     Blockly.Events.disable();
@@ -44,11 +42,12 @@ function init() {
     if (primaryWorkspace.id === event.workspaceId) {
       targetBackpack = secondaryBackpack;
       contents = primaryBackpack.getContents();
-      console.log('second workspace backpack updated');
-    } else { // secondaryWorkspace.id === event.workspaceId
+      console.log("second workspace backpack updated");
+    } else {
+      // secondaryWorkspace.id === event.workspaceId
       targetBackpack = primaryBackpack;
       contents = secondaryBackpack.getContents();
-      console.log('first workspace backpack updated');
+      console.log("first workspace backpack updated");
     }
     targetBackpack.setContentsAndNotify(contents);
     Blockly.Events.enable();

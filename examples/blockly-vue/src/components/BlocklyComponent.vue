@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="blocklyDiv" ref="blocklyDiv">
-    </div>
+    <div class="blocklyDiv" ref="blocklyDiv"></div>
     <xml ref="blocklyToolbox" style="display:none">
       <slot></slot>
     </xml>
@@ -11,7 +10,7 @@
 <script>
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,15 +31,15 @@
  * @author samelh@google.com (Sam El-Husseini)
  */
 
-import Blockly from 'blockly';
+import Blockly from "blockly";
 
 export default {
-  name: 'BlocklyComponent',
-  props: ['options'],
-  data(){
+  name: "BlocklyComponent",
+  props: ["options"],
+  data() {
     return {
-      workspace: null
-    }
+      workspace: null,
+    };
   },
   mounted() {
     var options = this.$props.options || {};
@@ -48,8 +47,8 @@ export default {
       options.toolbox = this.$refs["blocklyToolbox"];
     }
     this.workspace = Blockly.inject(this.$refs["blocklyDiv"], options);
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

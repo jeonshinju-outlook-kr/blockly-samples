@@ -11,19 +11,21 @@
  * @author anjali@code.org (Anjali Pal)
  */
 
-import * as Blockly from 'blockly/core';
+import * as Blockly from "blockly/core";
 
-Blockly.InsertionMarkerManager.prototype.update = function(dxy, deleteArea) {
+Blockly.InsertionMarkerManager.prototype.update = function (dxy, deleteArea) {
   const candidate = this.getCandidate_(dxy);
 
   this.wouldDeleteBlock_ = this.shouldDelete_(candidate, deleteArea);
-  const shouldUpdate = this.wouldDeleteBlock_ ||
-      this.shouldUpdatePreviews_(candidate, dxy);
+  const shouldUpdate =
+    this.wouldDeleteBlock_ || this.shouldUpdatePreviews_(candidate, dxy);
 
   if (shouldUpdate) {
     // Begin monkey patch
-    if (candidate.closest &&
-        candidate.closest.sourceBlock_.onPendingConnection) {
+    if (
+      candidate.closest &&
+      candidate.closest.sourceBlock_.onPendingConnection
+    ) {
       candidate.closest.sourceBlock_.onPendingConnection(candidate.closest);
       if (!this.pendingBlocks) {
         this.pendingBlocks = new Set();
@@ -40,7 +42,7 @@ Blockly.InsertionMarkerManager.prototype.update = function(dxy, deleteArea) {
 };
 
 const oldDispose = Blockly.InsertionMarkerManager.prototype.dispose;
-Blockly.InsertionMarkerManager.prototype.dispose = function() {
+Blockly.InsertionMarkerManager.prototype.dispose = function () {
   if (this.pendingBlocks) {
     this.pendingBlocks.forEach((block) => {
       if (block.finalizeConnections) {

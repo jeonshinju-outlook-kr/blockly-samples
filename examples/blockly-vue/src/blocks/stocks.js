@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,8 +24,7 @@
 // More on defining blocks:
 // https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks
 
-
-import * as Blockly from 'blockly/core';
+import * as Blockly from "blockly/core";
 
 Blockly.Blocks["stock_buy_simple"] = {
   init: function() {
@@ -42,7 +41,7 @@ Blockly.Blocks["stock_buy_simple"] = {
     this.setColour(230);
     this.setTooltip("buy id");
     this.setHelpUrl("https://example.com");
-  }
+  },
 };
 
 Blockly.JavaScript["stock_buy_simple"] = function(block) {
@@ -74,7 +73,7 @@ Blockly.Blocks["stock_buy_prog"] = {
     this.setColour(230);
     this.setTooltip("buy id");
     this.setHelpUrl("https://example.com");
-  }
+  },
 };
 
 Blockly.JavaScript["stock_buy_prog"] = function(block) {
@@ -106,7 +105,7 @@ Blockly.Blocks["stock_fetch_price"] = {
     this.setColour(230);
     this.setTooltip("fetch stock price");
     this.setHelpUrl("https://example.com");
-  }
+  },
 };
 
 Blockly.JavaScript["stock_fetch_price"] = function(block) {

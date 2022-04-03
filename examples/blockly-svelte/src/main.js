@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,10 +21,10 @@
  * @author abbychau@gmail.com (Abby Chau)
  */
 
-import App from './App.svelte';
+import App from "./App.svelte";
 
 const app = new App({
-  target: document.body
+  target: document.body,
 });
 
 export default app;

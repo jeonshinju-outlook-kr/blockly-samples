@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,31 +17,29 @@
  */
 
 /**
- * @fileoverview Example of including Blockly with using Webpack with a 
+ * @fileoverview Example of including Blockly with using Webpack with a
  *               custom locale: (French lang & JavaScript generator).
  * @author samelh@google.com (Sam El-Husseini)
  */
 
-import * as Blockly from 'blockly/core';
-import 'blockly/blocks';
-import 'blockly/javascript';
+import * as Blockly from "blockly/core";
+import "blockly/blocks";
+import "blockly/javascript";
 
-import * as Fr from 'blockly/msg/fr';
+import * as Fr from "blockly/msg/fr";
 Blockly.setLocale(Fr);
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    const workspace = Blockly.inject('blocklyDiv',
-        {
-            toolbox: document.getElementById('toolbox'),
-            media: 'media/'
-        });
+  const workspace = Blockly.inject("blocklyDiv", {
+    toolbox: document.getElementById("toolbox"),
+    media: "media/",
+  });
 
-    const lang = 'JavaScript';
-    const button = document.getElementById('blocklyButton');
-    button.addEventListener('click', function () {
-        alert("Check the console for the generated output.");
-        const code = Blockly[lang].workspaceToCode(workspace);
-        console.log(code);
-    })
+  const lang = "JavaScript";
+  const button = document.getElementById("blocklyButton");
+  button.addEventListener("click", function () {
+    alert("Check the console for the generated output.");
+    const code = Blockly[lang].workspaceToCode(workspace);
+    console.log(code);
+  });
 });

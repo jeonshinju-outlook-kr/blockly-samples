@@ -21,7 +21,7 @@
  * @author navil@google.com (Navil Perez)
  */
 
-import Position from '../Position';
+import Position from "../Position";
 
 /**
  * Get the position for the given user. If no user is specified will return
@@ -31,8 +31,9 @@ import Position from '../Position';
  * @public
  */
 export async function getPositionUpdates(workspaceId) {
-  const response = workspaceId ? await fetch('/api/users/position/query?workspaceId=' + workspaceId) :
-      await fetch('/api/users/position/query?');
+  const response = workspaceId
+    ? await fetch("/api/users/position/query?workspaceId=" + workspaceId)
+    : await fetch("/api/users/position/query?");
   const responseJson = await response.json();
   if (response.status === 200) {
     const positionUpdates = responseJson.positionUpdates;
@@ -41,25 +42,25 @@ export async function getPositionUpdates(workspaceId) {
     });
     return positionUpdates;
   } else {
-    throw 'Failed to get PositionUpdates.';
-  };
-};
+    throw "Failed to get PositionUpdates.";
+  }
+}
 
 /**
  * Update the position of a user in the database.
-  * @param {!PositionUpdate} positionUpdate The PositionUpdate with the new
-  * position for a given user.
-  * @return {!Promise} Promise object representing the success of the update.
-  * @public
-  */
+ * @param {!PositionUpdate} positionUpdate The PositionUpdate with the new
+ * position for a given user.
+ * @return {!Promise} Promise object representing the success of the update.
+ * @public
+ */
 export async function sendPositionUpdate(positionUpdate) {
-  const response = await fetch('/api/users/position/update', {
-    method: 'PUT',
-    body: JSON.stringify({ positionUpdate })
+  const response = await fetch("/api/users/position/update", {
+    method: "PUT",
+    body: JSON.stringify({positionUpdate}),
   });
   if (response.status === 200) {
     return;
   } else {
-    throw 'Failed to update position.';
-  };
-};
+    throw "Failed to update position.";
+  }
+}

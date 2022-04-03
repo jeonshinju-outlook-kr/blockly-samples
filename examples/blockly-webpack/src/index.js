@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,25 +17,24 @@
  */
 
 /**
- * @fileoverview Example of including Blockly with using Webpack with 
+ * @fileoverview Example of including Blockly with using Webpack with
  *               defaults: (English lang & JavaScript generator).
  * @author samelh@google.com (Sam El-Husseini)
  */
 
-import * as Blockly from 'blockly';
+import * as Blockly from "blockly";
 
 document.addEventListener("DOMContentLoaded", function () {
-    const workspace = Blockly.inject('blocklyDiv',
-        {
-            toolbox: document.getElementById('toolbox'),
-            media: 'media/'
-        });
+  const workspace = Blockly.inject("blocklyDiv", {
+    toolbox: document.getElementById("toolbox"),
+    media: "media/",
+  });
 
-    const lang = 'JavaScript';
-    const button = document.getElementById('blocklyButton');
-    button.addEventListener('click', function () {
-        alert("Check the console for the generated output.");
-        const code = Blockly[lang].workspaceToCode(workspace);
-        console.log(code);
-    })
+  const lang = "JavaScript";
+  const button = document.getElementById("blocklyButton");
+  button.addEventListener("click", function () {
+    alert("Check the console for the generated output.");
+    const code = Blockly[lang].workspaceToCode(workspace);
+    console.log(code);
+  });
 });

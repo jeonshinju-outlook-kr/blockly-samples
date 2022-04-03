@@ -1,7 +1,6 @@
-
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,8 +22,8 @@
  * @author navil@google.com (Navil Perez)
  */
 
-import io from 'socket.io-client';
-import Position from '../Position';
+import io from "socket.io-client";
+import Position from "../Position";
 
 const socket = io();
 
@@ -37,14 +36,14 @@ const socket = io();
  */
 export async function getPositionUpdates(workspaceId) {
   return new Promise((resolve, reject) => {
-    socket.emit('getPositionUpdates', workspaceId, (positionUpdates) => {
+    socket.emit("getPositionUpdates", workspaceId, (positionUpdates) => {
       positionUpdates.forEach((positionUpdate) => {
         positionUpdate.position = Position.fromJson(positionUpdate.position);
       });
       resolve(positionUpdates);
     });
   });
-};
+}
 
 /**
  * Update the position of a user in the database.
@@ -55,11 +54,11 @@ export async function getPositionUpdates(workspaceId) {
  */
 export async function sendPositionUpdate(positionUpdate) {
   return new Promise((resolve, reject) => {
-    socket.emit('sendPositionUpdate', positionUpdate, () => {
+    socket.emit("sendPositionUpdate", positionUpdate, () => {
       resolve();
     });
   });
-};
+}
 
 /**
  * Listen for PositionUpdates broadcast by the server.
@@ -68,13 +67,13 @@ export async function sendPositionUpdate(positionUpdate) {
  * @public
  */
 export async function getBroadcastPositionUpdates(callback) {
-  socket.on('broadcastPosition', async (positionUpdates)=> {
+  socket.on("broadcastPosition", async (positionUpdates) => {
     positionUpdates.forEach((positionUpdate) => {
       positionUpdate.position = Position.fromJson(positionUpdate.position);
     });
     await callback(positionUpdates);
   });
-};
+}
 
 /**
  * Enable tracking of the user by sending the workspaceId to the server.
@@ -83,11 +82,11 @@ export async function getBroadcastPositionUpdates(callback) {
  */
 export async function connectUser(workspaceId) {
   return new Promise((resolve, reject) => {
-    socket.emit('connectUser', workspaceId, ()=> {
+    socket.emit("connectUser", workspaceId, () => {
       resolve();
-    });  
+    });
   });
-};
+}
 
 /**
  * Listen for user disconnects broadcast by the server.
@@ -96,7 +95,7 @@ export async function connectUser(workspaceId) {
  * @public
  */
 export function getUserDisconnects(callback) {
-  socket.on('disconnectUser', async (workspaceId)=> {
+  socket.on("disconnectUser", async (workspaceId) => {
     await callback(workspaceId);
   });
-};
+}

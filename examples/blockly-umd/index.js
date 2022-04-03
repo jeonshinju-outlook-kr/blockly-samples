@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,30 +22,25 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    var toolbox = document.getElementById('toolbox');
-    var workspace = Blockly.inject('blocklyDiv',
-        {
-            comments: true,
-            collapse: true,
-            disable: true,
-            grid:
-            {
-                spacing: 25,
-                length: 3,
-                colour: '#ccc',
-                snap: true
-            },
-            toolbox: toolbox,
-            zoom:
-            {
-                controls: true,
-                wheel: true,
-                startScale: 1.0,
-                maxScale: 4,
-                minScale: 0.25,
-                scaleSpeed: 1.1
-            }
-        });
-
+  var toolbox = document.getElementById("toolbox");
+  var workspace = Blockly.inject("blocklyDiv", {
+    comments: true,
+    collapse: true,
+    disable: true,
+    grid: {
+      spacing: 25,
+      length: 3,
+      colour: "#ccc",
+      snap: true,
+    },
+    toolbox: toolbox,
+    zoom: {
+      controls: true,
+      wheel: true,
+      startScale: 1.0,
+      maxScale: 4,
+      minScale: 0.25,
+      scaleSpeed: 1.1,
+    },
+  });
 });

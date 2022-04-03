@@ -1,6 +1,6 @@
 /**
  * @license
- * 
+ *
  * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,8 @@
  * @author navil@google.com (Navil Perez)
  */
 
-import * as Blockly from 'blockly';
-import io from 'socket.io-client';
+import * as Blockly from "blockly";
+import io from "socket.io-client";
 
 const socket = io();
 
@@ -35,12 +35,12 @@ const socket = io();
  */
 export async function getSnapshot() {
   return new Promise((resolve, reject) => {
-    socket.emit('getSnapshot', (snapshot) => {
+    socket.emit("getSnapshot", (snapshot) => {
       snapshot.xml = Blockly.Xml.textToDom(snapshot.xml);
       resolve(snapshot);
     });
   });
-};
+}
 
 /**
  * Query the database for entries since the given server id.
@@ -51,7 +51,7 @@ export async function getSnapshot() {
  */
 export async function getEvents(serverId) {
   return new Promise((resolve, reject) => {
-    socket.emit('getEvents', serverId, (entries) => {
+    socket.emit("getEvents", serverId, (entries) => {
       entries.forEach((entry) => {
         entry.events = entry.events.map((entry) => {
           return Blockly.Events.fromJson(entry, Blockly.getMainWorkspace());
@@ -60,7 +60,7 @@ export async function getEvents(serverId) {
       resolve(entries);
     });
   });
-};
+}
 
 /**
  * Add an entry to the database.
@@ -72,14 +72,14 @@ export async function writeEvents(entry) {
   const entryJson = {
     workspaceId: entry.workspaceId,
     entryNumber: entry.entryNumber,
-    events: entry.events.map((event) => event.toJson())
+    events: entry.events.map((event) => event.toJson()),
   };
   return new Promise((resolve, reject) => {
-    socket.emit('addEvents', entryJson, () => {
+    socket.emit("addEvents", entryJson, () => {
       resolve();
     });
   });
-};
+}
 
 /**
  * Listen for events broadcast by the server.
@@ -89,7 +89,7 @@ export async function writeEvents(entry) {
  * @public
  */
 export function getBroadcast(callback) {
-  socket.on('broadcastEvents', (entries)=> {
+  socket.on("broadcastEvents", (entries) => {
     entries.forEach((entry) => {
       entry.events = entry.events.map((entry) => {
         return Blockly.Events.fromJson(entry, Blockly.getMainWorkspace());
@@ -97,4 +97,4 @@ export function getBroadcast(callback) {
     });
     callback(entries);
   });
-};
+}
