@@ -26,4 +26,4 @@ gh-pages/examples
 # IDEs and editors
 .idea
 *.sublime-workspace
-.vscode/*
+.vscode/settings.json
